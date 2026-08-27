@@ -25,3 +25,19 @@ nucleo_h533re/sample1/.mxproject
 nucleo_h533re/sample1/CMakePresets.json
 nucleo_h533re/sample1/STM32H533xx_FLASH.ld
 nucleo_h533re/sample1/STM32H533xx_RAM.ld
+
+# NUCLEO-C562RE（STM32CubeMX2 / CMSIS-Toolbox 生成物）
+# classic CubeMX と構成が全く違う（Core/・Drivers/ ではなく CMSIS パック展開）。
+# コミットするのは C562RE.ioc2（正本）と CMakeLists.txt・main.c・main.h だけ。
+# 再生成手順は docs/porting-c562re.md。
+nucleo_c562re/sample1/build/
+nucleo_c562re/sample1/.settings/
+nucleo_c562re/sample1/arch/
+nucleo_c562re/sample1/cmake/
+nucleo_c562re/sample1/generated/
+nucleo_c562re/sample1/misc/
+nucleo_c562re/sample1/stm32c5xx_dfp/
+nucleo_c562re/sample1/stm32c5xx_drivers/
+nucleo_c562re/sample1/user_modifiable/
+nucleo_c562re/sample1/utilities/
+nucleo_c562re/sample1/CMakePresets.json

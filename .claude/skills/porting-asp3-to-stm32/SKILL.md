@@ -12,6 +12,11 @@ description: TOPPERS/ASP3 を STM32（NUCLEO-H5系・STM32CubeMX + HAL + arm-non
 ## このスキルが扱う作業
 
 1. **新規ボード（例: NUCLEO-H723ZG）を ASP3 に追加する** → [checklists/new-board.md](checklists/new-board.md)
+   - ⚠️ **STM32C5 系（NUCLEO-C562RE 等）は前提が違う**：classic CubeMX では生成できず
+     **STM32CubeMX2（`.ioc2`・CMSIS-Toolbox・HAL2）** が必要で、生成物の構成も別物。
+     ただし `cube` CLI で**ヘッドレス生成が可能**（classic は GUI 必須だった）。
+     移植実例・CLI 手順・地雷（`ELECTRON_RUN_AS_NODE=1` で CubeMX2 が無音終了 等）は
+     `docs/porting-c562re.md`（リポジトリ側）にまとめてある。
 2. **実機で動かない時のデバッグ** → [checklists/bringup-debug.md](checklists/bringup-debug.md)
 3. **CubeMX コード生成の運用** → [reference/cubemx-generation.md](reference/cubemx-generation.md)
 4. **書込み・デバッグ・シリアルのツール操作** → [reference/flash-debug-tools.md](reference/flash-debug-tools.md)
