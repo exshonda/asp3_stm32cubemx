@@ -9,12 +9,21 @@ STM32CubeMX が生成する HAL プロジェクトと協調動作させる環境
 
 ## 対応ボードと検証状況
 
-| ボード | MCU | ターゲット名 | 実機検証（2026-06-12） |
-|---|---|---|---|
-| NUCLEO-H563ZI | STM32H563ZI（Cortex-M33） | `stm32h563_nucleo` | sample1・test_porting 6/6・testexec 32 PASS |
-| NUCLEO-H533RE | STM32H533RE（Cortex-M33） | `stm32h533_nucleo` | 同上 |
+| ボード | MCU | ターゲット名 | 構成生成 | 実機検証 |
+|---|---|---|---|---|
+| NUCLEO-H563ZI | STM32H563ZI（Cortex-M33） | `stm32h563_nucleo` | classic CubeMX | sample1・test_porting 6/6・testexec 32 PASS |
+| NUCLEO-H533RE | STM32H533RE（Cortex-M33） | `stm32h533_nucleo` | classic CubeMX | 同上 |
+| NUCLEO-C562RE | STM32C562RE（Cortex-M33） | `stm32c562_nucleo` | **STM32CubeMX2** | sample1・test_porting 6/6（testexec 未対応） |
+| STM32N6570-DK | STM32N657X0（**Cortex-M55**） | `stm32n6570_dk` | classic CubeMX | sample1・test_porting 6/6（testexec 未対応） |
 
-詳細は [docs/verification.md](docs/verification.md)、残課題は [docs/TODO.md](docs/TODO.md) を参照。
+**ボードごとにビルド・実行方法が違う**（preset 名・起動方法）。
+手順は **[docs/build-and-run.md](docs/build-and-run.md)** を参照。
+検証状況は [docs/verification.md](docs/verification.md)、残課題は [docs/TODO.md](docs/TODO.md)。
+
+C5 は classic CubeMX では扱えず STM32CubeMX2（HAL2・CMSIS パック）、
+N6 は内蔵フラッシュが無く SRAM にロードして OpenOCD で起動する。
+それぞれ [docs/porting-c562re.md](docs/porting-c562re.md) /
+[docs/porting-n6570dk.md](docs/porting-n6570dk.md) に経緯と落とし穴をまとめてある。
 
 ## ディレクトリ構成
 
@@ -36,6 +45,10 @@ asp3_stm32cube/
 clone 直後はビルドできません。**最初に CubeMX で GENERATE CODE して復元**してください。
 
 ## ビルド方法
+
+> 以下は NUCLEO-H563ZI / H533RE（classic CubeMX・フラッシュ起動）の手順です。
+> **C562RE と N6570-DK は手順が異なります**。4 ボード分をまとめた
+> [docs/build-and-run.md](docs/build-and-run.md) を参照してください。
 
 ### 0. クローン
 
@@ -128,6 +141,9 @@ python3 scripts/testexec_stm32.py --board nucleo_h563zi
 
 | 内容 | 場所 |
 |---|---|
+| **ビルド・書込み・実行（全ボード）** | **[docs/build-and-run.md](docs/build-and-run.md)** |
+| NUCLEO-C562RE 移植（CubeMX2 / HAL2） | [docs/porting-c562re.md](docs/porting-c562re.md) |
+| STM32N6570-DK 移植（M55 / Secure / SRAM 起動） | [docs/porting-n6570dk.md](docs/porting-n6570dk.md) |
 | 実機検証ホストPCの初期セットアップ（udev・FW・CubeMX初回） | [docs/host-setup.md](docs/host-setup.md) |
 | 検証状況・テスト再実行手順 | [docs/verification.md](docs/verification.md) |
 | 残課題 | [docs/TODO.md](docs/TODO.md) |
@@ -286,5 +302,8 @@ asp3_set_stm32_options(${CMAKE_PROJECT_NAME})
 ## 制限事項
 
 - TECS には対応していません（asp3_core は TECS レス方針）。
-- TrustZone（TZEN 有効）構成は未対応です。
+- TrustZone：**H5 / C5 は TZEN 無効（非 Secure 実行）前提**です。
+  一方 **STM32N6570-DK は Secure 実行**で動かしており（`TOPPERS_ENABLE_TRUSTZONE` を定義）、
+  Secure / NonSecure に分割する構成は未対応です。
+- 機能テスト全件（testexec）は H5 系のみ対応です（C562RE / N6570-DK は未対応）。
 - CubeMX 生成物に依存するため CI ではビルドしていません（実機環境で検証）。
