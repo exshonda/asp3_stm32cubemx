@@ -41,3 +41,29 @@ nucleo_c562re/sample1/stm32c5xx_drivers/
 nucleo_c562re/sample1/user_modifiable/
 nucleo_c562re/sample1/utilities/
 nucleo_c562re/sample1/CMakePresets.json
+
+# STM32N6570-DK（classic STM32CubeMX / N6 の FSBL コンテキスト単体生成物）
+# N6 は内蔵フラッシュを持たないため CubeMX は FSBL/ 以下に単一プロジェクトを生成する。
+# コミットするのは N6570DK.ioc（正本）と FSBL/CMakeLists.txt・FSBL/Src/main.c・
+# FSBL/Inc/main.h・FSBL/Src/stm32n6xx_it.c だけ。
+# 再生成は classic STM32CubeMX のヘッドレス実行（-q script / config load + project generate）。
+stm32n6570_dk/sample1/build/
+stm32n6570_dk/sample1/Drivers/
+stm32n6570_dk/sample1/Appli/
+stm32n6570_dk/sample1/ExtMemLoader/
+stm32n6570_dk/sample1/Secure_nsclib/
+stm32n6570_dk/sample1/.mxproject
+stm32n6570_dk/sample1/CMakeLists.txt
+stm32n6570_dk/sample1/CMakePresets.json
+stm32n6570_dk/sample1/gcc-arm-none-eabi.cmake
+stm32n6570_dk/sample1/mx-generated.cmake
+stm32n6570_dk/sample1/FSBL/build/
+stm32n6570_dk/sample1/FSBL/Inc/*
+!stm32n6570_dk/sample1/FSBL/Inc/main.h
+stm32n6570_dk/sample1/FSBL/Src/*
+!stm32n6570_dk/sample1/FSBL/Src/main.c
+!stm32n6570_dk/sample1/FSBL/Src/stm32n6xx_it.c
+stm32n6570_dk/sample1/FSBL/Startup/
+stm32n6570_dk/sample1/FSBL/mx-generated.cmake
+stm32n6570_dk/sample1/FSBL/CMakePresets.json
+stm32n6570_dk/sample1/FSBL/STM32N657XX_AXISRAM2_fsbl.ld
