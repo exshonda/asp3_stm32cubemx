@@ -1,11 +1,11 @@
 # TOPPERS/ASP3 Core の STM32 CubeMX 向け環境
 
-[TOPPERS/ASP3 Core](https://github.com/exshonda/asp3_core)（TECSレス・Python cfg 版 ASP3）を、
+[TOPPERS/ASP3 Core](https://github.com/toppers/asp3_core)（TECSレス・Python cfg 版 ASP3）を、
 STM32CubeMX が生成する HAL プロジェクトと協調動作させる環境です。
 カーネル本体は git submodule（`asp3/asp3_core`）として取り込み、STM32 固有部
 （チップ層・ターゲット依存部）を本リポジトリで管理します
-（[asp3_pico_sdk](https://github.com/exshonda/asp3_pico_sdk)／
-[asp3_fsp](https://github.com/exshonda/asp3_fsp) と同方式）。
+（[asp3_pico_sdk](https://github.com/toppers/asp3_pico_sdk)／
+[asp3_fsp](https://github.com/toppers/asp3_fsp) と同方式）。
 
 ## 対応ボードと検証状況
 
@@ -53,7 +53,7 @@ clone 直後はビルドできません。**最初に CubeMX で GENERATE CODE �
 ### 0. クローン
 
 ```bash
-git clone --recursive https://github.com/exshonda/asp3_stm32cube.git
+git clone --recursive https://github.com/toppers/asp3_stm32cube.git
 ```
 
 ### 1. STM32CubeMX でコード生成

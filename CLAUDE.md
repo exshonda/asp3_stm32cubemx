@@ -37,7 +37,7 @@ asp3_stm32cube/
 ## 2. 取得・ビルド・実機確認
 
 ```bash
-git clone --recurse-submodules https://github.com/exshonda/asp3_stm32cube.git
+git clone --recurse-submodules https://github.com/toppers/asp3_stm32cube.git
 # 既存clone: git submodule update --init --recursive
 ```
 

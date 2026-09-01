@@ -30,7 +30,7 @@
 ### clone
 
 ```bash
-git clone --recursive https://github.com/exshonda/asp3_stm32cube.git
+git clone --recursive https://github.com/toppers/asp3_stm32cube.git
 # 既存 clone: git submodule update --init --recursive
 ```
 
